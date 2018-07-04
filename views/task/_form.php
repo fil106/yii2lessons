@@ -35,6 +35,4 @@ use yii\jui\DatePicker;
 
     <?php ActiveForm::end(); ?>
 
-    <?= time() ?>
-
 </div>

@@ -70,12 +70,13 @@ class Task extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getDaysAndEvents($id = null)
+    public function getDaysAndEvents($date = null)
     {
-        $daysInMonth = date('t');
 
-        for ($i=0; $i < $daysInMonth; $i++) { 
-            $time = mktime(0,0,0,date('m'),$i,date('Y'));
+        $daysInMonth = (isset($date)) ? date('t', strtotime($date)) : date('t');
+
+        for ($i=1; $i <= $daysInMonth; $i++) {
+            $time = mktime(0,0,0,date('m', strtotime($date)),$i,date('Y', strtotime($date)));
             $this->events[$i] = self::findAll(['date' => $time]);
         }
 

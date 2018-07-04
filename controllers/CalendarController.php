@@ -8,14 +8,18 @@ use yii\web\Controller;
 
 class CalendarController extends Controller
 {
-	public function actionIndex()
+	public function actionIndex($date = null)
 	{
 		$model = new Task();
 
-		$tasks = $model->getDaysAndEvents();
+		$currDate = isset($date) ? $date : date('j.m.Y');
+
+		$tasks = $model->getDaysAndEvents($currDate);
 		return $this->render('index', [
-			'tasks' => $tasks
+			'tasks' => $tasks,
+			'date' => $currDate
 		]);
+
 	}
 
 	public function actionEvents($date)
