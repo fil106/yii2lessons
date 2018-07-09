@@ -65,22 +65,38 @@ class Task extends \yii\db\ActiveRecord
             'date' => 'Дата события',
             'description' => 'Описание',
             'user_id' => 'Создал',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'created_at' => 'Дата создания',
+            'updated_at' => 'Дата обновления',
         ];
     }
 
     public function getDaysAndEvents($date = null)
     {
 
-        $daysInMonth = (isset($date)) ? date('t', strtotime($date)) : date('t');
+        $keyName = 'events_'.$date;
 
-        for ($i=1; $i <= $daysInMonth; $i++) {
-            $time = mktime(0,0,0,date('m', strtotime($date)),$i,date('Y', strtotime($date)));
-            $this->events[$i] = self::findAll(['date' => $time]);
+        $cache = \Yii::$app->cache;
+        $data = $cache->get($keyName);
+
+        //проверяем есть ли кеш по ключу 'events'
+        //если нет, то записываем результат в кэш
+        if($data === false) {
+
+            $daysInMonth = (isset($date)) ? date('t', strtotime($date)) : date('t');
+
+            for ($i=1; $i <= $daysInMonth; $i++) {
+                $time = mktime(0,0,0,date('m', strtotime($date)),$i,date('Y', strtotime($date)));
+                $this->events[$i] = self::findAll(['date' => $time]);
+            }
+
+            $data = $this->events;
+
+            $cache->set($keyName, $data, 30);
+
         }
 
-        return $this->events;
+        return $data;
+
     }
 
     /**

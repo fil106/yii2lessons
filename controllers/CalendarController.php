@@ -15,6 +15,9 @@ class CalendarController extends Controller
 		$currDate = isset($date) ? $date : date('j.m.Y');
 
 		$tasks = $model->getDaysAndEvents($currDate);
+
+//        print_r($tasks);
+
 		return $this->render('index', [
 			'tasks' => $tasks,
 			'date' => $currDate
