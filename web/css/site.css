@@ -121,3 +121,7 @@ a.desc:after {
 .datepicker-month .ui-datepicker-calendar {
     display: none;
 }
+
+.table-color-darkgray {
+    background-color: darkgray;
+}

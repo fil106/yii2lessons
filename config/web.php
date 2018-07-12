@@ -43,6 +43,10 @@ $config = [
             ],
         ],
         'db' => $db,
+        //Пользовательские компоненты
+        'message' => [
+            'class' => 'app\components\MessageComponent'
+        ]
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,

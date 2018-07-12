@@ -4,6 +4,7 @@
 use yii\bootstrap\Html;
 use yii\helpers\Url;
 use yii\jui\DatePicker;
+use app\widgets\CalendarTableWidget;
 
 ?>
 
@@ -24,30 +25,10 @@ use yii\jui\DatePicker;
 
 <h1 class="text-center"><?= date('F', strtotime($date)) ?></h1>
 
-<table class="table table-bordered">
-	<tr>
-		<th>Дата</th>
-		<th>Событие</th>
-		<th>Всего событий</th>
-	</tr>
-	<?php foreach($tasks as $day => $events): ?>
-
-		<?php $datel = date('l', strtotime("$day.07.2018")); //день недели ?>
-
-		<tr class="td-date <?= ($datel == 'Sunday' || $datel == 'Saturday') ? 'warning' : null ?>">
-			<td>
-				<span class="label label-success"><?= $day ?>, <?= $datel ?></span>
-			</td>
-			<td>
-				<?= (count($events) > 0) ? '<p>' . $events[0]->name . '</p><p class="small">' . $events[0]->description . '</p>' : 'Нет событий' ?>
-			</td>
-			<td class="td-event">
-				<?= (count($events) > 0) ? Html::a(count($events), Url::to(['calendar/events', 'date' => $events[0]->date])) : 'Нет событий' ?>
-			</td>
-		</tr>
-
-	<?php endforeach; ?>
-</table>
+<?= CalendarTableWidget::widget([
+        'classNames' => 'table-bordered table-color-darkgray',
+        'tasks' => $tasks
+]); ?>
 
 <script>
 

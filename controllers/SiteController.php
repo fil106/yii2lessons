@@ -125,4 +125,82 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
+
+    public function actionTab()
+    {
+        $itemsTabs = [
+            [
+                'label' => 'First Tab',
+                'content' => 'First tab content',
+                'options' => [
+                    'id' => 'first-tab'
+                ],
+                'headerOptions' => []
+            ],
+            [
+                'label' => 'Second Tab',
+                'content' => 'Second tab content',
+                'options' => [
+                    'id' => 'Second-tab'
+                ],
+                'headerOptions' => []
+            ]
+        ];
+
+        $itemsTabs2 = [
+            [
+                'label' => 'First Tab',
+                'content' => 'First tab content',
+                'options' => [
+                    'id' => 'first-tab'
+                ],
+                'headerOptions' => []
+            ],
+            [
+                'label' => 'Second Tab',
+                'content' => 'Second tab content',
+                'options' => [
+                    'id' => 'Second-tab'
+                ],
+                'headerOptions' => []
+            ],
+            [
+                'label' => 'DropDown',
+                'items' => [
+                    [
+                        'label' => 'Tab A',
+                        'content' => 'Tab A content'
+                    ],
+                    [
+                        'label' => 'Tab B',
+                        'content' => 'Tab B content'
+                    ],
+                    [
+                        'label' => 'Link',
+                        'url' => '/'
+                    ]
+                ]
+            ]
+        ];
+
+        return $this->render('tabs', [
+//            'tabsItemsConfig' => $itemsTabs
+            'tabsItemsConfig' => $itemsTabs2
+        ]);
+    }
+
+    public function actionWidget1()
+    {
+        return $this->render('widget1');
+    }
+
+    public function actionWidget2()
+    {
+        return $this->render('widget2');
+    }
+
+    public function actionCmp1()
+    {
+        return $this->render('cmp1');
+    }
 }
